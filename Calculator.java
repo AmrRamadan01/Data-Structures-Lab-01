@@ -181,11 +181,16 @@ public class Calculator implements ICalculator{
 		int operand2 = 0;
 
 		strArr[0] = strArr[0].replaceAll(" ", "");
-		operand1 = Integer.parseInt(strArr[0]);
-
 		strArr[1] = strArr[1].replaceAll(" ", "");
-		operand2 = Integer.parseInt(strArr[1]);
 
+		try{
+			operand1 = Integer.parseInt(strArr[0]);
+			operand2 = Integer.parseInt(strArr[1]);
+		}
+
+		catch{
+			System.out.println("[Error]: Non-integer input value");
+		}
 		return((float) operand1 / operand2);
 
 	}
