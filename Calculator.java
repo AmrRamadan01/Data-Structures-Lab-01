@@ -3,7 +3,7 @@
 *All FRs staified
 *Items to be added:
 	1- A try-catch block to handle all invaild inputs such as "2+3+5"
-	2- A restriction to keep the operands between -220 < x ≤ 220 and -220 < y ≤ 220
+	2- A restriction to keep the operands between -220 < x ≤ 220 and -220 < y ≤ 220 (done for divide())
 **/
 
 
@@ -39,8 +39,6 @@ interface ICalculator {
 public class Calculator implements ICalculator{
 
 	public static void main( String[] args){
-
-		System.out.println("[Instruction Pointer]: Inside main()");
 
 		/**
 		creating an instance of the calculator class to access the non-static
@@ -112,13 +110,11 @@ public class Calculator implements ICalculator{
 	// Addition operator detiction method implementation.
 	public static boolean isAdd(String exp){
 
-		System.out.println("Inside isAdd?");
-
 		Pattern operator = Pattern.compile("\\+");
 		Matcher matcher = operator.matcher(exp);
 
 		if(matcher.find()){
-			System.out.println("Addition operator detected!");
+
 			return(true);
 		}
 
@@ -133,13 +129,11 @@ public class Calculator implements ICalculator{
 	//Division operator detiction method implementation.
 	public static boolean isDiv(String exp){
 
-		System.out.println("Inside isDiv?");
-
 		Pattern operator = Pattern.compile("/");
 		Matcher matcher = operator.matcher(exp);
 
 		if(matcher.find()){
-			System.out.println("Division operator detected!");
+
 			return(true);
 		}
 
@@ -152,28 +146,34 @@ public class Calculator implements ICalculator{
 	// Addition method implementation.
 	public int add(String exp){
 
-		System.out.println("[Instruction Pointer]: Inside add()");
-
 		String [] strArr = exp.split("\\+",2);
 
 		int operand1 = 0;
 		int operand2 = 0;
 
 		strArr[0] = strArr[0].replaceAll(" ", "");
-		operand1 = Integer.parseInt(strArr[0]);
-
 		strArr[1] = strArr[1].replaceAll(" ", "");
+
+		try{
+
+		operand1 = Integer.parseInt(strArr[0]);
 		operand2 = Integer.parseInt(strArr[1]);
 
 		return(operand1 + operand2);
+
+		}
+
+		catch(Exception e){
+
+			System.out.println("[Error]: Non-integer input value");
+			return(000);
+		}
 
 	}
 
 
 	//Division method implementation
 	public float divide(String exp){
-
-		System.out.println("[Instruction Pointer]: Inside devide()");
 
 		String [] strArr = exp.split("/",2);
 
@@ -188,11 +188,19 @@ public class Calculator implements ICalculator{
 			operand1 = Integer.parseInt(strArr[0]);
 			operand2 = Integer.parseInt(strArr[1]);
 
-			return((float) operand1 / operand2);
+			if (operand1>(-2^20) & operand1<=(2^20) & operand2>(-2^20) & operand2<=(2^20)){
+
+				return((float) operand1 / operand2);
+			}
+
+			else{
+					throw new ArithmeticException("Input out of RANGE!");
+			}
+
 		}
 
-		catch(Exception e)
-		{
+		catch(Exception e){
+
 			System.out.println("[Error]: Non-integer input value");
 			return(000);
 		}
