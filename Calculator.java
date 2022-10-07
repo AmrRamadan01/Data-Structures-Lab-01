@@ -1,9 +1,12 @@
 /**
-[By Amr Ramadan, 6/10/22, 05:04]
-*All FRs staified
+[By Amr Ramadan, 7/10/22, 03:59]
+
+*GitHub repo:
+https://github.com/AmrRamadan01/Data-Structures-Lab-01
+
+*All FRs staified.
 *Items to be added:
-	1- A try-catch block to handle all invaild inputs such as "2+3+5"
-	2- A restriction to keep the operands between -220 < x ≤ 220 and -220 < y ≤ 220 (done for divide())
+	1- A try-catch block to handle all invaild inputs such as "2+3+5" (done)
 **/
 
 
@@ -78,13 +81,14 @@ public class Calculator implements ICalculator{
 			* It catches the ArithmaticException throwable.
 			**/
 			catch(ArithmeticException e){
-				System.out.println("[Error]: Devision by zero");
+
+				System.out.println("Error");
 			}
 
 		}
 
 		else {
-			System.out.println("\n[Error]: Invalid input expression.\n");
+			System.out.println("Error");
 
 		}
 
@@ -97,7 +101,7 @@ public class Calculator implements ICalculator{
 		// Instanciating a scanner object to scan the user input.
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Please Enter the expression to be evaluated: ");
+		//System.out.println("Please Enter the expression to be evaluated: ");
 
 		// reading the user input.
 		String expStr = sc.nextLine();
@@ -109,6 +113,14 @@ public class Calculator implements ICalculator{
 
 	// Addition operator detiction method implementation.
 	public static boolean isAdd(String exp){
+
+		/**
+		This block uses the regular expression "/" to
+		search for the division operator within the
+		input string. Note: "//+" uses the escape
+		character as "+" has a reserved meaning
+		in regular expressions.
+		**/
 
 		Pattern operator = Pattern.compile("\\+");
 		Matcher matcher = operator.matcher(exp);
@@ -129,6 +141,12 @@ public class Calculator implements ICalculator{
 	//Division operator detiction method implementation.
 	public static boolean isDiv(String exp){
 
+		/**
+		This block uses the regular expression "/" to
+		search for the division operator within the
+		input string.
+		**/
+
 		Pattern operator = Pattern.compile("/");
 		Matcher matcher = operator.matcher(exp);
 
@@ -145,6 +163,16 @@ public class Calculator implements ICalculator{
 
 	// Addition method implementation.
 	public int add(String exp){
+
+		/**
+		This block splits the input string arround
+		the addition operator, replaces the white
+		spaces with empty strings, and converts
+		the string operands to integers to
+		be used in the result calculation. Again,
+		the escape character in "//+" is used
+		because "+" has reserved meaning in re.
+		**/
 
 		String [] strArr = exp.split("\\+",2);
 
@@ -165,7 +193,7 @@ public class Calculator implements ICalculator{
 
 		catch(Exception e){
 
-			System.out.println("[Error]: Non-integer input value");
+			System.out.println("Error");
 			return(000);
 		}
 
@@ -175,6 +203,20 @@ public class Calculator implements ICalculator{
 	//Division method implementation
 	public float divide(String exp){
 
+		/**
+		This block splits the input string arround
+		the division operator, replaces the white
+		spaces with empty strings, and converts
+		the string operands to integers to
+		be used in the result calculation.
+
+		The	try-catch block checks for INFINITY
+		and NaN values returned by the float
+		division. It throws an exception to be
+		detected by the try-catch block enclosing
+		the method call in the main method.
+		**/
+
 		String [] strArr = exp.split("/",2);
 
 		int operand1 = 0;
@@ -183,27 +225,20 @@ public class Calculator implements ICalculator{
 		strArr[0] = strArr[0].replaceAll(" ", "");
 		strArr[1] = strArr[1].replaceAll(" ", "");
 
-		try{
 
-			operand1 = Integer.parseInt(strArr[0]);
-			operand2 = Integer.parseInt(strArr[1]);
 
-			if (operand1>(-2^20) & operand1<=(2^20) & operand2>(-2^20) & operand2<=(2^20)){
+		operand1 = Integer.parseInt(strArr[0]);
+		operand2 = Integer.parseInt(strArr[1]);
 
-				return((float) operand1 / operand2);
+
+			if(operand2 == 0){
+				throw  new ArithmeticException("Can't div by zero");
 			}
 
 			else{
-					throw new ArithmeticException("Input out of RANGE!");
+
+				return((float) operand1 / operand2);
 			}
-
-		}
-
-		catch(Exception e){
-
-			System.out.println("[Error]: Non-integer input value");
-			return(000);
-		}
 
 	}
 
