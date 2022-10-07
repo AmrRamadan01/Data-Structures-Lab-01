@@ -27,22 +27,27 @@ Output Format
 Sample Input 0
 
 2 + 3
+
 Sample Output 0
 
 5
+
 Sample Input 1
 
 -3 + -2
+
 Sample Output 1
 
 -5
+
 Sample Input 2
 
 3 / 5
+
 Sample Output 2
 
 0.6
 
 ## Notes on Release 1.1
 
-The task required "Error" message to be printed to the stdout stream in case of any errors. The previous release 1.0 did not satisfy this requirement. Instead, it throws an exception with a custom error message.
+The task required "Error" message to be printed to the stdout stream in case of any errors.  The previous release 1.0 did not satisfy this requirement.  Instead, it throws an exception with a custom error message.
